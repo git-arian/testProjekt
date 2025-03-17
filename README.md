@@ -1,4 +1,4 @@
-# PizzaProjekt2025
+# Pizza Projekt 2025
 
 #Gruppe Navn
 - Gruppe 5
