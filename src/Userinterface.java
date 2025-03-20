@@ -19,7 +19,7 @@ public class Userinterface {
             System.out.println("1. Menu overview ");
             System.out.println("2. Manage orders");
             System.out.println("3. Exit");
-            System.out.println("Choose (1-2)");
+            System.out.println("Choose (1-3)");
             try {
                 int input = scanner.nextInt();
                 scanner.nextLine();

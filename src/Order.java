@@ -22,7 +22,7 @@ public class Order {
         quantities.add(quantity);
     }
 
-    private double totalPrice() {
+    public double totalPrice() {
         double total = 0;
         for (int i = 0; i < pizzas.size(); i++) {
             total += pizzas.get(i).getPizzaPrice() * quantities.get(i);
@@ -57,5 +57,13 @@ public class Order {
 
     public int getOrderID() {
         return orderID;
+    }
+
+    public ArrayList<Pizza> getPizzas() {
+        return pizzas;
+    }
+
+    public ArrayList<Integer> getQuantities() {
+        return quantities;
     }
 }

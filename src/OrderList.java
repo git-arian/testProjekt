@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -25,7 +27,9 @@ public class OrderList {
             System.out.println("1. View active orders");
             System.out.println("2. Mark order complete");
             System.out.println("3. View completed orders");
-            System.out.println("4. Return to main menu");
+            System.out.println("4. Save current completed orders to file");
+            System.out.println("5. Load a complated orders file ");
+            System.out.println("6. Return to main menu");
             System.out.println("Choose (1-4):");
 
             try {
@@ -36,8 +40,9 @@ public class OrderList {
                     case 1 -> showActiveOrders(activeOrders);
                     case 2 -> completeOrder();
                     case 3 -> showCompleteOrders();
-                    case 4 -> b = false;
-                    default -> System.out.println("Error: Only numbers (1-4) allowed.");
+                    case 4 -> saveCompletedOrders();
+                    case 5 -> b = false;
+                    default -> System.out.println("Error: Only numbers (1-5) allowed.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Only numbers allowed!");
@@ -75,6 +80,7 @@ public class OrderList {
                     Order orderToMove = activeOrders.get(i);
                     activeOrders.remove(i);
                     completedOrders.add(orderToMove);
+                    System.out.println("Order " + orderID + " marked complete!");
                     found = true;
                     break;
                 }
@@ -97,10 +103,14 @@ public class OrderList {
             return;
         }
 
+        double totalRevenue = 0;
         System.out.println("==== COMPLETE ORDERS ===");
         for (Order order : completedOrders) {
             System.out.println(order);
             System.out.println("====================");
+            totalRevenue += order.totalPrice();
+
+            System.out.println("Total revenue thus far: " + totalRevenue);
         }
 
     }
@@ -117,12 +127,24 @@ public class OrderList {
         order2.addPizza(magherita, 1);
         order2.addPizza(bblCrust, 2);
 
-        Order order3 = new Order(LocalDateTime.now().plusMinutes(22), LocalDateTime.now().plusMinutes(40));
+        Order order3 = new Order(LocalDateTime.now().minusMinutes(11), LocalDateTime.now().plusHours(1));
         order3.addPizza(marios, 1);
+        order3.addPizza(magherita, 5);
+
+        Order order4 = new Order(LocalDateTime.now().plusMinutes(36), LocalDateTime.now().plusHours(1).plusMinutes(8));
+        order4.addPizza(marios, 1);
+        order4.addPizza(magherita, 2);
+
+        Order order5 = new Order(LocalDateTime.now().plusMinutes(40), LocalDateTime.now().plusHours(3));
+        order5.addPizza(marios, 2);
+        order5.addPizza(bblCrust, 3);
 
         activeOrders.add(order1);
         activeOrders.add(order2);
         activeOrders.add(order3);
+        activeOrders.add(order4);
+        activeOrders.add(order5);
+
     }
 
     private Pizza getPizzaById(int id) {
@@ -132,5 +154,20 @@ public class OrderList {
             }
         }
         return null;
+    }
+
+    private void saveCompletedOrders() {
+        try {
+            String filename = "completed_orders.txt";
+            FileWriter writer = new FileWriter(filename);
+            for (Order order : completedOrders) {
+                writer.write(order.toString() + "\n");
+                writer.write("====================\n");
+            }
+            writer.close();
+            System.out.println("Completed orders saved to file " + filename);
+        } catch (IOException e) {
+            System.out.println("Error! Try again.");
+        }
     }
 }
