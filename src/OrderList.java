@@ -30,7 +30,7 @@ public class OrderList {
             System.out.println("4. Save current completed orders to file");
             System.out.println("5. Load a complated orders file ");
             System.out.println("6. Return to main menu");
-            System.out.println("Choose (1-4):");
+            System.out.println("Choose (1-6):");
 
             try {
                 int input = scanner.nextInt();
@@ -41,8 +41,9 @@ public class OrderList {
                     case 2 -> completeOrder();
                     case 3 -> showCompleteOrders();
                     case 4 -> saveCompletedOrders();
-                    case 5 -> b = false;
-                    default -> System.out.println("Error: Only numbers (1-5) allowed.");
+                    case 5 -> loadCompletedOrders();
+                    case 6 -> b = false;
+                    default -> System.out.println("Error: Only numbers (1-6) allowed.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Only numbers allowed!");
@@ -169,5 +170,10 @@ public class OrderList {
         } catch (IOException e) {
             System.out.println("Error! Try again.");
         }
+    }
+
+    private void loadCompletedOrders() {
+        System.out.println("in progress...");
+        // TODO implementer logik for at loade txt.filen her
     }
 }
