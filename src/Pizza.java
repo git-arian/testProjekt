@@ -1,41 +1,41 @@
 public class Pizza {
 
     private int pizzaID;
-    private String pizzaNavn;
-    private double price;
+    private String pizzaName;
+    private double pizzaPrice;
 
-    public Pizza (int id, String pizzaNavn, double price) {
+    public Pizza (int id, String pizzaName, double pizzaPrice) {
         this.pizzaID = id;
-        this.pizzaNavn = pizzaNavn;
-        this.price = price;
+        this.pizzaName = pizzaName;
+        this.pizzaPrice = pizzaPrice;
     }
 
     public int getPizzaID() {
         return pizzaID;
     }
 
-    public String getPizzaNavn() {
-        return pizzaNavn;
+    public String getPizzaName() {
+        return pizzaName;
     }
 
-    public double getPrice() {
-        return price;
+    public double getPizzaPrice() {
+        return pizzaPrice;
     }
 
     public void setPizzaID(int pizzaID) {
         this.pizzaID = pizzaID;
     }
 
-    public void setPizzaNavn(String pizzaNavn) {
-        this.pizzaNavn = pizzaNavn;
+    public void setPizzaName(String pizzaName) {
+        this.pizzaName = pizzaName;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPizzaPrice(double pizzaPrice) {
+        this.pizzaPrice = pizzaPrice;
     }
 
     @Override
     public String toString() {
-        return "#" + pizzaID + ". " + pizzaNavn + " " + price + ",-";
+        return "#" + pizzaID + ". " + pizzaName + " " + pizzaPrice + ",-";
     }
 }

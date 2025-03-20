@@ -24,7 +24,7 @@ public class Menu {
             System.out.println("1. Show menu card");
             System.out.println("2. Edit price of pizza");
             System.out.println("3. Return to main menu");
-            System.out.println("Enter numbers from 1 to 3:");
+            System.out.println("Choose (1-3):");
 
             try {
                 int input = scanner.nextInt();
@@ -34,10 +34,10 @@ public class Menu {
                     case 1 -> showMenuCard();
                     case 2 -> editPizzaPrice();
                     case 3 -> b = false;
-                    default -> System.out.println("Error(*menu overview*): Only numbers from 1 to 3 allowed.");
+                    default -> System.out.println("Error: Only numbers (1-3) allowed.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Error(*menu overview*): Only numbers allowed!");
+                System.out.println("Error: Only numbers allowed!");
                 scanner.nextLine();
             }
         }
@@ -52,7 +52,9 @@ public class Menu {
     }
 
     private void editPizzaPrice() {
-        System.out.println("Enter ID of which pizza you would like to change the price of:");
+        System.out.println("Enter pizza ID:");
+
+
         int pizzaIDToEdit = scanner.nextInt();
 
         boolean found = false;
@@ -61,8 +63,8 @@ public class Menu {
                 System.out.println(pizza + " found!");
                 System.out.println("What would you like to change the price to?");
                 double newPrice = scanner.nextDouble();
-                pizza.setPrice(newPrice);
-                System.out.println("Price succesfully changed to " + pizza.getPrice());
+                pizza.setPizzaPrice(newPrice);
+                System.out.println("Price succesfully changed to " + pizza.getPizzaPrice());
                 found = true;
                 break;
             }
@@ -70,5 +72,9 @@ public class Menu {
         if (!found) {
             System.out.println("Pizza with ID " + pizzaIDToEdit + " not found!");
         }
+    }
+
+    public ArrayList<Pizza> getPizzaList() {
+        return pizzaList;
     }
 }
