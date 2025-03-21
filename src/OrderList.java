@@ -1,10 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class OrderList {
     private ArrayList<Order> activeOrders;
@@ -79,6 +78,7 @@ public class OrderList {
             for (int i = 0; i < activeOrders.size(); i++) {
                 if (activeOrders.get(i).getOrderID() == orderID) {
                     Order orderToMove = activeOrders.get(i);
+
                     activeOrders.remove(i);
                     completedOrders.add(orderToMove);
                     System.out.println("Order " + orderID + " marked complete!");
@@ -88,7 +88,7 @@ public class OrderList {
             }
 
             if (!found) {
-                System.out.println("Order with " + orderID + " not found!");
+                System.out.println("Order with ID " + orderID + " not found!");
             }
         } catch (InputMismatchException e) {
             System.out.println("Invalid input! Please enter a number.");
@@ -105,14 +105,14 @@ public class OrderList {
         }
 
         double totalRevenue = 0;
-        System.out.println("==== COMPLETE ORDERS ===");
+        System.out.println("==== COMPLETED ORDERS ===");
         for (Order order : completedOrders) {
             System.out.println(order);
             System.out.println("====================");
             totalRevenue += order.totalPrice();
-
-            System.out.println("Total revenue thus far: " + totalRevenue);
         }
+            System.out.println("Total revenue thus far: " + totalRevenue);
+
 
     }
 
@@ -173,7 +173,22 @@ public class OrderList {
     }
 
     private void loadCompletedOrders() {
-        System.out.println("in progress...");
-        // TODO implementer logik for at loade txt.filen her
+        String filename = "completed_orders.txt";
+
+        try (Scanner fileScanner = new Scanner(new File(filename))) {
+            completedOrders.clear();
+
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine().trim();
+
+                if (line.startsWith("ORDER ID:")) {
+                    completedOrders.add(new Order(LocalDateTime.now(), LocalDateTime.now().plusHours(1)));
+                }
+            }
+
+            System.out.println("Loaded " + completedOrders.size() + " completed orders!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: File not found!");
+        }
     }
 }

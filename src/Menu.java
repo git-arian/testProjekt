@@ -53,8 +53,6 @@ public class Menu {
 
     private void editPizzaPrice() {
         System.out.println("Enter pizza ID:");
-
-
         int pizzaIDToEdit = scanner.nextInt();
 
         boolean found = false;

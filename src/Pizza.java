@@ -22,14 +22,6 @@ public class Pizza {
         return pizzaPrice;
     }
 
-    public void setPizzaID(int pizzaID) {
-        this.pizzaID = pizzaID;
-    }
-
-    public void setPizzaName(String pizzaName) {
-        this.pizzaName = pizzaName;
-    }
-
     public void setPizzaPrice(double pizzaPrice) {
         this.pizzaPrice = pizzaPrice;
     }

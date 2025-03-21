@@ -58,12 +58,4 @@ public class Order {
     public int getOrderID() {
         return orderID;
     }
-
-    public ArrayList<Pizza> getPizzas() {
-        return pizzas;
-    }
-
-    public ArrayList<Integer> getQuantities() {
-        return quantities;
-    }
 }
