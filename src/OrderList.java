@@ -12,10 +12,10 @@ public class OrderList {
     private Scanner scanner;
     private Menu menu;
 
-    public OrderList(Scanner scanner, Menu menu) {
+    public OrderList(Scanner scanner, Menu menu, OrderHistory orderHistory) {
         this.scanner = scanner;
         this.menu = menu;
-        this.orderHistory = new OrderHistory();
+        this.orderHistory = orderHistory;
         activeOrders = new ArrayList<>();
         completedOrders = new ArrayList<>();
         testOrders();

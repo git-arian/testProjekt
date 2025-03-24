@@ -11,7 +11,7 @@ public class Userinterface {
         this.scanner = new Scanner(System.in);
         this.menu = new Menu(scanner);
         this.orderHistory = new OrderHistory(scanner);
-        this.orderList = new OrderList(scanner, menu);
+        this.orderList = new OrderList(scanner, menu, orderHistory);
     }
 
     public void mainMenu() {
