@@ -10,14 +10,15 @@ import java.util.Scanner;
 public class OrderHistory {
     public ArrayList<Order> completedOrders;
     Scanner scanner;
+    Menu menu;
 
-public OrderHistory(Scanner scanner) {
+public OrderHistory(Scanner scanner, Menu menu) {
     this.completedOrders = new ArrayList<>();
     this.scanner = scanner;
+    this.menu = menu;
 }
 
 public void orderHistoryMenu() {
-
     boolean b = true;
     while (b) {
         System.out.println("1. View completed orders");
@@ -45,12 +46,10 @@ public void orderHistoryMenu() {
 }
 
     private void showCompleteOrders() {
-
         if (completedOrders.isEmpty()) {
             System.out.println("No active orders!");
             return;
         }
-
         double totalRevenue = 0;
         System.out.println("==== COMPLETED ORDERS ===");
         for (Order order : completedOrders) {
@@ -58,7 +57,10 @@ public void orderHistoryMenu() {
             System.out.println("====================");
             totalRevenue += order.totalPrice();
         }
+        System.out.println("========================");
         System.out.println("Total revenue thus far: " + totalRevenue);
+        System.out.println("========================");
+        showPopularPizzas();
     }
 
     private void saveCompletedOrders() {
@@ -94,5 +96,24 @@ public void orderHistoryMenu() {
         } catch (FileNotFoundException e) {
             System.out.println("Error: File not found!");
         }
+    }
+
+    public void showPopularPizzas() {
+        int[] pizzaCounts = new int[menu.getPizzaList().size()];
+
+        for (Order order : completedOrders) {
+            for (int i = 0; i < order.getPizzas().size(); i++) {
+                Pizza pizza = order.getPizzas().get(i);
+                int quantity = order.getQuantities().get(i);
+
+                pizzaCounts[pizza.getPizzaID() - 1] += quantity;
+            }
+        }
+
+        for (int i = 0; i < pizzaCounts.length; i++) {
+            Pizza pizza = menu.getPizzaList().get(i);
+            System.out.println(pizza.getPizzaName() + ": " + pizzaCounts[i] + " sold");
+        }
+        System.out.println("========================");
     }
 }

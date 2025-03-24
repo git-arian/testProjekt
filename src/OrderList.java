@@ -1,7 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -48,12 +44,10 @@ public class OrderList {
     }
 
     private void showActiveOrders(ArrayList<Order> orders) {
-
         if (activeOrders.isEmpty()) {
             System.out.println("No active orders!");
             return;
         }
-
         orders.sort(Comparator.comparing(Order::getPickupTime));
 
         System.out.println("==== ACTIVE ORDERS ===");
@@ -114,7 +108,6 @@ public class OrderList {
         activeOrders.add(order3);
         activeOrders.add(order4);
         activeOrders.add(order5);
-
     }
 
     private Pizza getPizzaById(int id) {

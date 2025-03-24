@@ -10,7 +10,7 @@ public class Userinterface {
     public Userinterface() {
         this.scanner = new Scanner(System.in);
         this.menu = new Menu(scanner);
-        this.orderHistory = new OrderHistory(scanner);
+        this.orderHistory = new OrderHistory(scanner, menu);
         this.orderList = new OrderList(scanner, menu, orderHistory);
     }
 
