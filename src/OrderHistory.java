@@ -22,7 +22,7 @@ public void orderHistoryMenu() {
     while (b) {
         System.out.println("1. View completed orders");
         System.out.println("2. Save current completed orders to file");
-        System.out.println("3. Load a complated orders file ");
+        System.out.println("3. Load a completed orders file ");
         System.out.println("4. Return to previous menu");
         System.out.println("Choose (1-4):");
 
@@ -44,7 +44,7 @@ public void orderHistoryMenu() {
     }
 }
 
-    public void showCompleteOrders() {
+    private void showCompleteOrders() {
 
         if (completedOrders.isEmpty()) {
             System.out.println("No active orders!");
@@ -61,7 +61,7 @@ public void orderHistoryMenu() {
         System.out.println("Total revenue thus far: " + totalRevenue);
     }
 
-    public void saveCompletedOrders() {
+    private void saveCompletedOrders() {
         try {
             String filename = "completed_orders.txt";
             FileWriter writer = new FileWriter(filename);
@@ -76,7 +76,7 @@ public void orderHistoryMenu() {
         }
     }
 
-    public void loadCompletedOrders() {
+    private void loadCompletedOrders() {
         String filename = "completed_orders.txt";
 
         try (Scanner fileScanner = new Scanner(new File(filename))) {

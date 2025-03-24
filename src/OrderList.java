@@ -7,7 +7,6 @@ import java.util.*;
 
 public class OrderList {
     private ArrayList<Order> activeOrders;
-    private ArrayList<Order> completedOrders;
     private OrderHistory orderHistory;
     private Scanner scanner;
     private Menu menu;
@@ -17,7 +16,6 @@ public class OrderList {
         this.menu = menu;
         this.orderHistory = orderHistory;
         activeOrders = new ArrayList<>();
-        completedOrders = new ArrayList<>();
         testOrders();
     }
 
