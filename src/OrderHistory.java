@@ -4,13 +4,44 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class OrderHistory {
     public ArrayList<Order> completedOrders;
+    Scanner scanner;
 
-public OrderHistory() {
+public OrderHistory(Scanner scanner) {
     this.completedOrders = new ArrayList<>();
+    this.scanner = scanner;
+}
+
+public void orderHistoryMenu() {
+
+    boolean b = true;
+    while (b) {
+        System.out.println("1. View completed orders");
+        System.out.println("2. Save current completed orders to file");
+        System.out.println("3. Load a complated orders file ");
+        System.out.println("4. Return to previous menu");
+        System.out.println("Choose (1-4):");
+
+        try {
+            int input = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (input) {
+                case 1 -> showCompleteOrders();
+                case 2 -> saveCompletedOrders();
+                case 3 -> loadCompletedOrders();
+                case 4 -> b = false;
+                default -> System.out.println("Error: Only numbers (1-4) allowed.");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Only numbers allowed!");
+            scanner.nextLine();
+        }
+    }
 }
 
     public void showCompleteOrders() {

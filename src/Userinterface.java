@@ -5,10 +5,12 @@ public class Userinterface {
     private Scanner scanner;
     private Menu menu;
     private OrderList orderList;
+    private OrderHistory orderHistory;
 
     public Userinterface() {
         this.scanner = new Scanner(System.in);
         this.menu = new Menu(scanner);
+        this.orderHistory = new OrderHistory(scanner);
         this.orderList = new OrderList(scanner, menu);
     }
 

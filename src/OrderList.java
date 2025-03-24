@@ -27,11 +27,9 @@ public class OrderList {
             System.out.println();
             System.out.println("1. View active orders");
             System.out.println("2. Mark order complete");
-            System.out.println("3. View completed orders");
-            System.out.println("4. Save current completed orders to file");
-            System.out.println("5. Load a complated orders file ");
-            System.out.println("6. Return to main menu");
-            System.out.println("Choose (1-6):");
+            System.out.println("3. View order history");
+            System.out.println("4. Return to main menu");
+            System.out.println("Choose (1-4):");
 
             try {
                 int input = scanner.nextInt();
@@ -40,11 +38,9 @@ public class OrderList {
                 switch (input) {
                     case 1 -> showActiveOrders(activeOrders);
                     case 2 -> completeOrder();
-                    case 3 -> orderHistory.showCompleteOrders();
-                    case 4 -> orderHistory.saveCompletedOrders();
-                    case 5 -> orderHistory.loadCompletedOrders();
-                    case 6 -> b = false;
-                    default -> System.out.println("Error: Only numbers (1-6) allowed.");
+                    case 3 -> orderHistory.orderHistoryMenu();
+                    case 4 -> b = false;
+                    default -> System.out.println("Error: Only numbers (1-4) allowed.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Only numbers allowed!");
@@ -76,7 +72,6 @@ public class OrderList {
             int orderID = scanner.nextInt();
             scanner.nextLine();
 
-            boolean found = false;
             for (int i = 0; i < activeOrders.size(); i++) {
                 if (activeOrders.get(i).getOrderID() == orderID) {
                     Order orderToMove = activeOrders.remove(i);
@@ -85,10 +80,7 @@ public class OrderList {
                     return;
                 }
             }
-
-            if (!found) {
                 System.out.println("Order with ID " + orderID + " not found!");
-            }
         } catch (InputMismatchException e) {
             System.out.println("Invalid input! Please enter a number.");
             scanner.nextLine();
