@@ -4,12 +4,12 @@ import java.util.Scanner;
 public class Userinterface {
     private Scanner scanner;
     private Menu menu;
-    private OrderList orderlist;
+    private OrderList orderList;
 
     public Userinterface() {
         this.scanner = new Scanner(System.in);
         this.menu = new Menu(scanner);
-        this.orderlist = new OrderList(scanner, menu);
+        this.orderList = new OrderList(scanner, menu);
     }
 
     public void mainMenu() {
@@ -45,6 +45,6 @@ public class Userinterface {
     }
 
     private void manageOrders() {
-        orderlist.manageOrders();
+        orderList.manageOrders();
     }
 }

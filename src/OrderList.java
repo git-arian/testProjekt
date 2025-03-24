@@ -8,12 +8,14 @@ import java.util.*;
 public class OrderList {
     private ArrayList<Order> activeOrders;
     private ArrayList<Order> completedOrders;
+    private OrderHistory orderHistory;
     private Scanner scanner;
     private Menu menu;
 
     public OrderList(Scanner scanner, Menu menu) {
         this.scanner = scanner;
         this.menu = menu;
+        this.orderHistory = new OrderHistory();
         activeOrders = new ArrayList<>();
         completedOrders = new ArrayList<>();
         testOrders();
@@ -38,9 +40,9 @@ public class OrderList {
                 switch (input) {
                     case 1 -> showActiveOrders(activeOrders);
                     case 2 -> completeOrder();
-                    case 3 -> showCompleteOrders();
-                    case 4 -> saveCompletedOrders();
-                    case 5 -> loadCompletedOrders();
+                    case 3 -> orderHistory.showCompleteOrders();
+                    case 4 -> orderHistory.saveCompletedOrders();
+                    case 5 -> orderHistory.loadCompletedOrders();
                     case 6 -> b = false;
                     default -> System.out.println("Error: Only numbers (1-6) allowed.");
                 }
@@ -77,13 +79,10 @@ public class OrderList {
             boolean found = false;
             for (int i = 0; i < activeOrders.size(); i++) {
                 if (activeOrders.get(i).getOrderID() == orderID) {
-                    Order orderToMove = activeOrders.get(i);
-
-                    activeOrders.remove(i);
-                    completedOrders.add(orderToMove);
+                    Order orderToMove = activeOrders.remove(i);
+                    orderHistory.completedOrders.add(orderToMove);
                     System.out.println("Order " + orderID + " marked complete!");
-                    found = true;
-                    break;
+                    return;
                 }
             }
 
@@ -94,26 +93,6 @@ public class OrderList {
             System.out.println("Invalid input! Please enter a number.");
             scanner.nextLine();
         }
-    }
-
-
-    private void showCompleteOrders() {
-
-        if (completedOrders.isEmpty()) {
-            System.out.println("No active orders!");
-            return;
-        }
-
-        double totalRevenue = 0;
-        System.out.println("==== COMPLETED ORDERS ===");
-        for (Order order : completedOrders) {
-            System.out.println(order);
-            System.out.println("====================");
-            totalRevenue += order.totalPrice();
-        }
-            System.out.println("Total revenue thus far: " + totalRevenue);
-
-
     }
 
     private void testOrders() {
@@ -155,40 +134,5 @@ public class OrderList {
             }
         }
         return null;
-    }
-
-    private void saveCompletedOrders() {
-        try {
-            String filename = "completed_orders.txt";
-            FileWriter writer = new FileWriter(filename);
-            for (Order order : completedOrders) {
-                writer.write(order.toString() + "\n");
-                writer.write("====================\n");
-            }
-            writer.close();
-            System.out.println("Completed orders saved to file " + filename);
-        } catch (IOException e) {
-            System.out.println("Error! Try again.");
-        }
-    }
-
-    private void loadCompletedOrders() {
-        String filename = "completed_orders.txt";
-
-        try (Scanner fileScanner = new Scanner(new File(filename))) {
-            completedOrders.clear();
-
-            while (fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine().trim();
-
-                if (line.startsWith("ORDER ID:")) {
-                    completedOrders.add(new Order(LocalDateTime.now(), LocalDateTime.now().plusHours(1)));
-                }
-            }
-
-            System.out.println("Loaded " + completedOrders.size() + " completed orders!");
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: File not found!");
-        }
     }
 }
