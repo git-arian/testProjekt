@@ -6,6 +6,7 @@ public class OrderList {
     private OrderHistory orderHistory;
     private Scanner scanner;
     private Menu menu;
+    private Order order;
 
     public OrderList(Scanner scanner, Menu menu, OrderHistory orderHistory) {
         this.scanner = scanner;
@@ -22,8 +23,9 @@ public class OrderList {
             System.out.println("1. View active orders");
             System.out.println("2. Mark order complete");
             System.out.println("3. View order history");
-            System.out.println("4. Return to main menu");
-            System.out.println("Choose (1-4):");
+            System.out.println("4. Manually add order");
+            System.out.println("5. Return to main menu");
+            System.out.println("Choose (1-5):");
 
             try {
                 int input = scanner.nextInt();
@@ -33,8 +35,9 @@ public class OrderList {
                     case 1 -> showActiveOrders(activeOrders);
                     case 2 -> completeOrder();
                     case 3 -> orderHistory.orderHistoryMenu();
-                    case 4 -> b = false;
-                    default -> System.out.println("Error: Only numbers (1-4) allowed.");
+                    case 4 -> manuallyAddOrder();
+                    case 5 -> b = false;
+                    default -> System.out.println("Error: Only numbers (1-5) allowed.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: Only numbers allowed!");
@@ -72,7 +75,7 @@ public class OrderList {
                     return;
                 }
             }
-                System.out.println("Order with ID " + orderID + " not found!");
+            System.out.println("Order with ID " + orderID + " not found!");
         } catch (InputMismatchException e) {
             System.out.println("Invalid input! Please enter a number.");
             scanner.nextLine();
@@ -101,7 +104,7 @@ public class OrderList {
 
         Order order5 = new Order(LocalDateTime.now().plusMinutes(40), LocalDateTime.now().plusHours(3));
         order5.addPizza(marios, 2);
-        order5.addPizza(bblCrust, 3);
+        order5.addPizza(bblCrust, 2);
 
         activeOrders.add(order1);
         activeOrders.add(order2);
@@ -109,6 +112,34 @@ public class OrderList {
         activeOrders.add(order4);
         activeOrders.add(order5);
     }
+
+    private void manuallyAddOrder() {
+        menu.showMenuCard();
+
+        System.out.println("Enter the ID of the pizza you would like to add:");
+        int idToAdd = scanner.nextInt();
+
+        Pizza pizzaToAdd = null;
+        for (int i = 0; i < menu.getPizzaList().size(); i++) {
+            if (menu.getPizzaList().get(i).getPizzaID() == idToAdd) {
+                pizzaToAdd = menu.getPizzaList().get(i);
+                break;
+            }
+        }
+
+        if (pizzaToAdd != null) {
+            System.out.println("Enter quantity for " + pizzaToAdd.getPizzaName() + ":");
+            int quantity = scanner.nextInt();
+
+            Order manualOrder = new Order(LocalDateTime.now(), LocalDateTime.now().plusMinutes(30));
+            manualOrder.addPizza(pizzaToAdd, quantity);
+            activeOrders.add(manualOrder);
+            System.out.println(quantity + " x " + pizzaToAdd.getPizzaName() + " added to your order!");
+        } else {
+            System.out.println("Pizza with ID " + idToAdd + " not found! Please try again.");
+        }
+    }
+
 
     private Pizza getPizzaById(int id) {
         for (Pizza pizza : menu.getPizzaList()) {

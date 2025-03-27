@@ -12,38 +12,38 @@ public class OrderHistory {
     Scanner scanner;
     Menu menu;
 
-public OrderHistory(Scanner scanner, Menu menu) {
-    this.completedOrders = new ArrayList<>();
-    this.scanner = scanner;
-    this.menu = menu;
-}
+    public OrderHistory(Scanner scanner, Menu menu) {
+        this.completedOrders = new ArrayList<>();
+        this.scanner = scanner;
+        this.menu = menu;
+    }
 
-public void orderHistoryMenu() {
-    boolean b = true;
-    while (b) {
-        System.out.println("1. View completed orders");
-        System.out.println("2. Save current completed orders to file");
-        System.out.println("3. Load a completed orders file ");
-        System.out.println("4. Return to previous menu");
-        System.out.println("Choose (1-4):");
+    public void orderHistoryMenu() {
+        boolean b = true;
+        while (b) {
+            System.out.println("1. View completed orders");
+            System.out.println("2. Save current completed orders to file");
+            System.out.println("3. Load a completed orders file ");
+            System.out.println("4. Return to previous menu");
+            System.out.println("Choose (1-4):");
 
-        try {
-            int input = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                int input = scanner.nextInt();
+                scanner.nextLine();
 
-            switch (input) {
-                case 1 -> showCompleteOrders();
-                case 2 -> saveCompletedOrders();
-                case 3 -> loadCompletedOrders();
-                case 4 -> b = false;
-                default -> System.out.println("Error: Only numbers (1-4) allowed.");
+                switch (input) {
+                    case 1 -> showCompleteOrders();
+                    case 2 -> saveCompletedOrders();
+                    case 3 -> loadCompletedOrders();
+                    case 4 -> b = false;
+                    default -> System.out.println("Error: Only numbers (1-4) allowed.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Only numbers allowed!");
+                scanner.nextLine();
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Error: Only numbers allowed!");
-            scanner.nextLine();
         }
     }
-}
 
     private void showCompleteOrders() {
         if (completedOrders.isEmpty()) {
@@ -78,7 +78,7 @@ public void orderHistoryMenu() {
         }
     }
 
-    private void loadCompletedOrders() {
+    private void loadCompletedOrders() { // Mangler fuld implementering af parsing
         String filename = "completed_orders.txt";
 
         try (Scanner fileScanner = new Scanner(new File(filename))) {

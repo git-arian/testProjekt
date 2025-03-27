@@ -43,7 +43,7 @@ public class Menu {
         }
     }
 
-    private void showMenuCard() {
+    public void showMenuCard() {
         System.out.println("===== MENU =====");
         for (Pizza pizza : pizzaList) {
             System.out.println(pizza);

@@ -28,6 +28,6 @@ public class Pizza {
 
     @Override
     public String toString() {
-        return "#" + pizzaID + ". " + pizzaName + " " + pizzaPrice + ",-";
+        return "#" + pizzaID + ". " + pizzaName + " " + String.format("%.2f", pizzaPrice) + ",-";
     }
 }

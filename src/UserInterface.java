@@ -1,13 +1,13 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Userinterface {
+public class UserInterface {
     private Scanner scanner;
     private Menu menu;
     private OrderList orderList;
     private OrderHistory orderHistory;
 
-    public Userinterface() {
+    public UserInterface() {
         this.scanner = new Scanner(System.in);
         this.menu = new Menu(scanner);
         this.orderHistory = new OrderHistory(scanner, menu);
